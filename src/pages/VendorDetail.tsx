@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { StarIcon, Phone, Mail, MapPin, Calendar } from "lucide-react";
+import { StarIcon, Phone, Mail, MapPin, Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
