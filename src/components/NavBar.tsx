@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const NavBar = () => {
@@ -16,7 +16,7 @@ const NavBar = () => {
       <div className="container-custom flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            <h1 className="text-3xl font-alex text-primary">Forever After Finder</h1>
+            <h1 className="text-3xl font-alex text-primary">Moments</h1>
           </Link>
         </div>
 
@@ -25,13 +25,10 @@ const NavBar = () => {
           <Link to="/" className="text-gray-700 hover:text-primary transition-colors">Home</Link>
           <Link to="/vendors" className="text-gray-700 hover:text-primary transition-colors">Find Vendors</Link>
           <Link to="/blog" className="text-gray-700 hover:text-primary transition-colors">Blog</Link>
+          <Link to="/about" className="text-gray-700 hover:text-primary transition-colors">About Us</Link>
+          <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors">Contact Us</Link>
           <Link to="/testimonials" className="text-gray-700 hover:text-primary transition-colors">Testimonials</Link>
-          <Link to="/about" className="text-gray-700 hover:text-primary transition-colors">About</Link>
-          <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors">Contact</Link>
-          <Button variant="outline" size="sm" className="flex items-center">
-            <Search className="h-4 w-4 mr-2" />
-            <span>Search</span>
-          </Button>
+          <Link to="/faq" className="text-gray-700 hover:text-primary transition-colors">FAQ</Link>
         </div>
 
         {/* Mobile menu button */}
@@ -49,13 +46,10 @@ const NavBar = () => {
             <Link to="/" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Home</Link>
             <Link to="/vendors" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Find Vendors</Link>
             <Link to="/blog" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Blog</Link>
+            <Link to="/about" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>About Us</Link>
+            <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Contact Us</Link>
             <Link to="/testimonials" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Testimonials</Link>
-            <Link to="/about" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>About</Link>
-            <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Contact</Link>
-            <Button variant="outline" size="sm" className="flex items-center justify-center w-full">
-              <Search className="h-4 w-4 mr-2" />
-              <span>Search</span>
-            </Button>
+            <Link to="/faq" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>FAQ</Link>
           </div>
         </div>
       )}

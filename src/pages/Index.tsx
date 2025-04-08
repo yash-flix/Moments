@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import SearchBox from "@/components/SearchBox";
@@ -8,7 +9,7 @@ import GetAssistanceForm from "@/components/GetAssistanceForm";
 import FeaturedVendors from "@/components/FeaturedVendors";
 import Chatbot from "@/components/Chatbot";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
@@ -24,7 +25,11 @@ const Index = () => {
             Discover top decorators, florists, photographers, and caterers in your area to make your special day unforgettable
           </p>
           <div className="flex justify-center">
-            <SearchBox />
+            <Link to="/vendors">
+              <Button className="h-12 px-6 bg-primary hover:bg-primary/90 text-white font-medium text-lg">
+                Find Vendors
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -92,11 +97,11 @@ const Index = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2">10 Tips to Stay Within Your Wedding Budget</h3>
+                <h3 className="text-xl font-semibold mb-2">Top 10 Wedding Planning Tips for 2025</h3>
                 <p className="text-gray-600 mb-4 line-clamp-3">
                   Learn how to allocate your budget effectively without compromising on your dream wedding.
                 </p>
-                <Link to="/blog/wedding-budget" className="text-primary inline-flex items-center">
+                <Link to="/blog/top-10-wedding-planning-tips-for-2025" className="text-primary inline-flex items-center">
                   Read More <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </div>
@@ -113,7 +118,7 @@ const Index = () => {
                 <p className="text-gray-600 mb-4 line-clamp-3">
                   Key factors to consider when selecting a venue that matches your style and guest list.
                 </p>
-                <Link to="/blog/wedding-venue" className="text-primary inline-flex items-center">
+                <Link to="/blog/how-to-choose-the-perfect-wedding-venue" className="text-primary inline-flex items-center">
                   Read More <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </div>
@@ -122,15 +127,15 @@ const Index = () => {
             <div className="overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
               <img 
                 src="https://images.unsplash.com/photo-1528656707959-c9dc050e59a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                alt="Seasonal Flowers" 
+                alt="Budget-Friendly Decorations" 
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2">Seasonal Wedding Flowers Guide</h3>
+                <h3 className="text-xl font-semibold mb-2">Budget-Friendly Wedding Decoration Ideas</h3>
                 <p className="text-gray-600 mb-4 line-clamp-3">
-                  Discover the best floral options for each season to create stunning arrangements.
+                  Discover affordable yet stunning decoration ideas for your wedding day.
                 </p>
-                <Link to="/blog/seasonal-flowers" className="text-primary inline-flex items-center">
+                <Link to="/blog/budget-friendly-wedding-decoration-ideas" className="text-primary inline-flex items-center">
                   Read More <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </div>

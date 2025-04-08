@@ -12,20 +12,64 @@ type Message = {
 
 const weddingQuestions = [
   {
-    question: "What is the average cost of a wedding?",
-    answer: "The average cost of a wedding in the US is approximately $28,000, but this can vary greatly depending on location, guest count, and your choices of vendors and services."
+    question: "What is the average cost of a wedding in India?",
+    answer: "Around ₹20-50 lakhs, depending on location and scale."
   },
   {
-    question: "How far in advance should I book vendors?",
-    answer: "Key vendors like venues, photographers, and caterers should be booked 9-12 months in advance, especially if your wedding is during peak season (May-October)."
+    question: "How do I choose a wedding venue",
+    answer: "Consider budget, guest count, and ambiance; search our vendors for options."
   },
   {
-    question: "What services do wedding decorators provide?",
-    answer: "Wedding decorators typically provide floral arrangements, table settings, backdrop designs, lighting, draping, and overall theme coordination to create your desired ambiance."
+    question: "What are the latest wedding decoration trends for 2025?",
+    answer: "Bold colors like Verona Sunset and sustainable decor."
   },
   {
-    question: "How do I search for vendors on this site?",
-    answer: "Use the search bar on our homepage to enter your location, then filter results by vendor type, price range, and ratings to find the perfect match for your needs."
+    question: "How far in advance should I book a photographer?",
+    answer: "6-12 months for peak seasons."
+  },
+  {
+    question: "What should I ask a caterer before hiring?",
+    answer: "Menu options, dietary accommodations, and pricing."
+  },
+  {
+    question: "How do I find a florist on your website?",
+    answer: "Use the Find Vendors page and filter by florists."
+  },
+  {
+    question: "Can you suggest budget-friendly wedding ideas?",
+    answer: "Opt for off-season dates and local vendors."
+  },
+  {
+    question: "What's the difference between traditional and candid photography?",
+    answer: "Traditional is posed; candid captures natural moments."
+  },
+  {
+    question: "How do I request an appointment with a decorator?",
+    answer: "Click Request Appointment on their page."
+  },
+  {
+    question: "What are popular wedding themes this year?",
+    answer: "Rustic, bohemian, and modern minimalism."
+  },
+  {
+    question: "How do I leave a review for a service provider?",
+    answer: "Log in and submit a rating on their page."
+  },
+  {
+    question: "What legal documents are needed for a wedding in India?",
+    answer: "ID proof, address proof, and marriage registration form."
+  },
+  {
+    question: "How can I contact a caterer listed on your site?",
+    answer: "Use the phone or email on their page."
+  },
+  {
+    question: "What are some unique wedding favor ideas?",
+    answer: "Personalized candles or eco-friendly seed packets."
+  },
+  {
+    question: "How do I get personalized assistance from your team?",
+    answer: "Click Get Assistance and fill the form."
   }
 ];
 
@@ -141,17 +185,6 @@ const Chatbot = () => {
         <MessageSquare />
       </Button>
     </div>
-  );
-};
-
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
-
-const Input = ({ className, ...props }: InputProps) => {
-  return (
-    <input
-      className={`border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50 ${className}`}
-      {...props}
-    />
   );
 };
 

@@ -16,6 +16,8 @@ const SearchBox = () => {
     }
   };
 
+  const indianCities = ["Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata"];
+
   return (
     <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-2 w-full max-w-2xl">
       <div className="flex-grow relative">
@@ -25,7 +27,13 @@ const SearchBox = () => {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           className="bg-white/95 h-12 pl-4 pr-10 text-lg rounded-md"
+          list="indian-cities"
         />
+        <datalist id="indian-cities">
+          {indianCities.map((city) => (
+            <option key={city} value={city} />
+          ))}
+        </datalist>
       </div>
       <Button 
         type="submit" 

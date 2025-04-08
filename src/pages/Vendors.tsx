@@ -9,96 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { StarIcon, Search, MapPin, Filter } from "lucide-react";
 import Chatbot from "@/components/Chatbot";
-
-// Sample data for demonstration
-const mockVendors = [
-  {
-    id: 1,
-    name: "Elegant Occasions",
-    category: "Decorators",
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    rating: 4.9,
-    location: "Los Angeles, CA",
-    description: "Transforming venues into magical spaces with creative decorations and lighting.",
-    price: "$$"
-  },
-  {
-    id: 2,
-    name: "Blooming Bliss",
-    category: "Florists",
-    image: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-    rating: 4.8,
-    location: "San Francisco, CA",
-    description: "Stunning floral arrangements that bring your wedding vision to life.",
-    price: "$$$"
-  },
-  {
-    id: 3,
-    name: "Captured Moments",
-    category: "Photographers",
-    image: "https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-    rating: 5.0,
-    location: "New York, NY",
-    description: "Award-winning photographers capturing the emotion and beauty of your special day.",
-    price: "$$$"
-  },
-  {
-    id: 4,
-    name: "Gourmet Celebrations",
-    category: "Caterers",
-    image: "https://images.unsplash.com/photo-1486428263684-28ec9e4f2584?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-    rating: 4.7,
-    location: "Chicago, IL",
-    description: "Exquisite cuisine that delights all tastes and dietary preferences.",
-    price: "$$$$"
-  },
-  {
-    id: 5,
-    name: "Dreamy Designs",
-    category: "Decorators",
-    image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    rating: 4.6,
-    location: "Seattle, WA",
-    description: "Creative decorations for weddings of all styles and budgets.",
-    price: "$"
-  },
-  {
-    id: 6,
-    name: "Floral Fantasy",
-    category: "Florists",
-    image: "https://images.unsplash.com/photo-1464699908537-0954e50189af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-    rating: 4.5,
-    location: "Miami, FL",
-    description: "Lush, romantic floral designs for your wedding ceremony and reception.",
-    price: "$$"
-  },
-  {
-    id: 7,
-    name: "Lens Masters",
-    category: "Photographers",
-    image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
-    rating: 4.9,
-    location: "Denver, CO",
-    description: "Modern, artistic photography with a storytelling approach.",
-    price: "$$"
-  },
-  {
-    id: 8,
-    name: "Savory Delights",
-    category: "Caterers",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    rating: 4.8,
-    location: "Boston, MA",
-    description: "Gourmet food with customizable menus for every taste and budget.",
-    price: "$$$"
-  },
-];
+import { vendors, filterVendors } from "@/data/vendors";
 
 const priceOptions = [
-  { label: "$", value: 1 },
-  { label: "$$", value: 2 },
-  { label: "$$$", value: 3 },
-  { label: "$$$$", value: 4 },
+  { label: "$", value: "$" },
+  { label: "$$", value: "$$" },
+  { label: "$$$", value: "$$$" },
+  { label: "$$$$", value: "$$$$" },
 ];
 
 const categoryOptions = [
@@ -111,6 +28,14 @@ const categoryOptions = [
 
 const ratingOptions = [3, 4, 5];
 
+const cityOptions = [
+  "Delhi", 
+  "Mumbai", 
+  "Bangalore", 
+  "Chennai", 
+  "Kolkata"
+];
+
 const Vendors = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -120,29 +45,62 @@ const Vendors = () => {
   const [searchLocation, setSearchLocation] = useState(queryParams.get("location") || "");
   const [selectedCategory, setSelectedCategory] = useState(queryParams.get("category") || "All");
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
-  const [priceRange, setPriceRange] = useState<number[]>([1, 4]);
+  const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [selectedCity, setSelectedCity] = useState<string>("");
   
   // Process vendors based on filters
-  const filteredVendors = mockVendors.filter(vendor => {
-    const matchesCategory = selectedCategory === "All" || vendor.category === selectedCategory;
+  const filteredVendors = vendors.filter(vendor => {
+    // Convert category to lowercase for matching
+    const vendorCategory = vendor.category.charAt(0).toUpperCase() + vendor.category.slice(1);
+    
+    const matchesCategory = selectedCategory === "All" || 
+                           vendorCategory === selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
+    
     const matchesRating = selectedRating === null || vendor.rating >= selectedRating;
-    const matchesPrice = vendor.price.length >= priceRange[0] && vendor.price.length <= priceRange[1];
+    
+    const matchesPrice = selectedPrices.length === 0 || selectedPrices.includes(vendor.price);
+    
     const matchesLocation = searchLocation === "" || 
       vendor.location.toLowerCase().includes(searchLocation.toLowerCase());
       
-    return matchesCategory && matchesRating && matchesPrice && matchesLocation;
+    const matchesCity = selectedCity === "" || 
+      vendor.city.toLowerCase() === selectedCity.toLowerCase();
+      
+    return matchesCategory && matchesRating && matchesPrice && matchesLocation && matchesCity;
   });
+  
+  const togglePriceFilter = (price: string) => {
+    if (selectedPrices.includes(price)) {
+      setSelectedPrices(selectedPrices.filter(p => p !== price));
+    } else {
+      setSelectedPrices([...selectedPrices, price]);
+    }
+  };
   
   // Update URL when filters change
   useEffect(() => {
     const params = new URLSearchParams();
     if (searchLocation) params.set("location", searchLocation);
-    if (selectedCategory !== "All") params.set("category", selectedCategory);
+    if (selectedCategory !== "All") params.set("category", selectedCategory.toLowerCase());
+    if (selectedCity) params.set("city", selectedCity);
     
     const newUrl = `${location.pathname}?${params.toString()}`;
     navigate(newUrl, { replace: true });
-  }, [searchLocation, selectedCategory, navigate, location.pathname]);
+  }, [searchLocation, selectedCategory, selectedCity, navigate, location.pathname]);
+  
+  // Initialize filters from URL params
+  useEffect(() => {
+    const categoryParam = queryParams.get("category");
+    if (categoryParam) {
+      setSelectedCategory(categoryParam.charAt(0).toUpperCase() + categoryParam.slice(1));
+    }
+    
+    const cityParam = queryParams.get("city");
+    if (cityParam) {
+      setSelectedCity(cityParam);
+    }
+  }, []);
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -176,6 +134,22 @@ const Vendors = () => {
                     className="pl-9 w-full"
                   />
                   <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                </div>
+              </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium mb-2">City</label>
+                <div className="space-y-2">
+                  <select 
+                    className="w-full p-2 border rounded-md" 
+                    value={selectedCity}
+                    onChange={(e) => setSelectedCity(e.target.value)}
+                  >
+                    <option value="">All Cities</option>
+                    {cityOptions.map((city) => (
+                      <option key={city} value={city}>{city}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
               
@@ -217,21 +191,18 @@ const Vendors = () => {
               
               <div className="mb-6">
                 <label className="block text-sm font-medium mb-2">Price Range</label>
-                <div className="px-2">
-                  <Slider
-                    defaultValue={[1, 4]}
-                    min={1}
-                    max={4}
-                    step={1}
-                    value={priceRange}
-                    onValueChange={(value) => setPriceRange(value)}
-                    className="mb-4"
-                  />
-                  <div className="flex justify-between text-sm text-gray-500">
-                    <span>{priceOptions[priceRange[0]-1].label}</span>
-                    <span>to</span>
-                    <span>{priceOptions[priceRange[1]-1].label}</span>
-                  </div>
+                <div className="space-y-2">
+                  {priceOptions.map((price) => (
+                    <label key={price.value} className="flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedPrices.includes(price.value)}
+                        onChange={() => togglePriceFilter(price.value)}
+                        className="mr-2"
+                      />
+                      <span>{price.label}</span>
+                    </label>
+                  ))}
                 </div>
               </div>
               
@@ -240,8 +211,9 @@ const Vendors = () => {
                 onClick={() => {
                   setSelectedCategory("All");
                   setSelectedRating(null);
-                  setPriceRange([1, 4]);
+                  setSelectedPrices([]);
                   setSearchLocation("");
+                  setSelectedCity("");
                 }}
                 className="w-full"
               >
@@ -276,6 +248,20 @@ const Vendors = () => {
                     />
                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   </div>
+                </div>
+                
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2">City</label>
+                  <select 
+                    className="w-full p-2 border rounded-md" 
+                    value={selectedCity}
+                    onChange={(e) => setSelectedCity(e.target.value)}
+                  >
+                    <option value="">All Cities</option>
+                    {cityOptions.map((city) => (
+                      <option key={city} value={city}>{city}</option>
+                    ))}
+                  </select>
                 </div>
                 
                 <div className="mb-4">
@@ -318,21 +304,20 @@ const Vendors = () => {
                 
                 <div className="mb-4">
                   <label className="block text-sm font-medium mb-2">Price Range</label>
-                  <div className="px-2">
-                    <Slider
-                      defaultValue={[1, 4]}
-                      min={1}
-                      max={4}
-                      step={1}
-                      value={priceRange}
-                      onValueChange={(value) => setPriceRange(value)}
-                      className="mb-4"
-                    />
-                    <div className="flex justify-between text-sm text-gray-500">
-                      <span>{priceOptions[priceRange[0]-1].label}</span>
-                      <span>to</span>
-                      <span>{priceOptions[priceRange[1]-1].label}</span>
-                    </div>
+                  <div className="flex flex-wrap gap-2">
+                    {priceOptions.map((price) => (
+                      <button
+                        key={price.value}
+                        onClick={() => togglePriceFilter(price.value)}
+                        className={`px-3 py-1 rounded-full text-sm ${
+                          selectedPrices.includes(price.value) 
+                            ? 'bg-primary text-white' 
+                            : 'bg-gray-100 text-gray-800'
+                        }`}
+                      >
+                        {price.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
                 
@@ -342,8 +327,9 @@ const Vendors = () => {
                     onClick={() => {
                       setSelectedCategory("All");
                       setSelectedRating(null);
-                      setPriceRange([1, 4]);
+                      setSelectedPrices([]);
                       setSearchLocation("");
+                      setSelectedCity("");
                     }}
                     className="flex-1"
                   >
@@ -373,8 +359,9 @@ const Vendors = () => {
                   onClick={() => {
                     setSelectedCategory("All");
                     setSelectedRating(null);
-                    setPriceRange([1, 4]);
+                    setSelectedPrices([]);
                     setSearchLocation("");
+                    setSelectedCity("");
                   }}
                 >
                   Reset Filters
@@ -408,7 +395,7 @@ const Vendors = () => {
                             className="w-full h-full object-cover"
                           />
                           <div className="absolute top-0 left-0 bg-primary text-white px-3 py-1 text-sm">
-                            {vendor.category}
+                            {vendor.category.charAt(0).toUpperCase() + vendor.category.slice(1)}
                           </div>
                           <div className="absolute top-0 right-0 bg-white text-gray-800 px-3 py-1 text-sm">
                             {vendor.price}
@@ -419,13 +406,13 @@ const Vendors = () => {
                             <h3 className="text-lg font-semibold">{vendor.name}</h3>
                             <div className="flex items-center">
                               <StarIcon className="h-4 w-4 text-yellow-500 mr-1" fill="currentColor" />
-                              <span className="text-sm font-medium">{vendor.rating}</span>
+                              <span className="text-sm font-medium">{vendor.rating.toFixed(1)}</span>
                             </div>
                           </div>
                           <p className="text-sm text-gray-500 mb-2 flex items-center">
                             <MapPin className="h-3 w-3 mr-1" /> {vendor.location}
                           </p>
-                          <p className="text-sm text-gray-700">{vendor.description}</p>
+                          <p className="text-sm text-gray-700 line-clamp-2">{vendor.description}</p>
                         </CardContent>
                       </Card>
                     </Link>
