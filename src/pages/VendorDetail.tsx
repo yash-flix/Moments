@@ -15,7 +15,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -138,7 +138,7 @@ const VendorDetail = () => {
                 <Dialog open={formOpen} onOpenChange={setFormOpen}>
                   <DialogTrigger asChild>
                     <Button className="bg-primary hover:bg-primary/90 flex items-center">
-                      <Calendar className="h-4 w-4 mr-2" /> Request Appointment
+                      <CalendarIcon className="h-4 w-4 mr-2" /> Request Appointment
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[500px]">
@@ -206,7 +206,7 @@ const VendorDetail = () => {
                                 </Button>
                               </PopoverTrigger>
                               <PopoverContent className="w-auto p-0" align="start">
-                                <CalendarComponent
+                                <Calendar
                                   mode="single"
                                   selected={appointmentDate}
                                   onSelect={setAppointmentDate}
