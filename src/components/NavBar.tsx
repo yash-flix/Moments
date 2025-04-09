@@ -1,14 +1,20 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -29,6 +35,29 @@ const NavBar = () => {
           <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors">Contact Us</Link>
           <Link to="/testimonials" className="text-gray-700 hover:text-primary transition-colors">Testimonials</Link>
           <Link to="/faq" className="text-gray-700 hover:text-primary transition-colors">FAQ</Link>
+          
+          {isAuthenticated ? (
+            <div className="flex items-center space-x-4">
+              <Link to="/dashboard" className="text-gray-700 hover:text-primary transition-colors flex items-center">
+                <User className="h-4 w-4 mr-1" />
+                Dashboard
+              </Link>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-gray-700 hover:text-primary transition-colors flex items-center"
+                onClick={handleLogout}
+              >
+                <LogOut className="h-4 w-4 mr-1" />
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <Link to="/login" className="text-gray-700 hover:text-primary transition-colors flex items-center">
+              <User className="h-4 w-4 mr-1" />
+              Login/Signup
+            </Link>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -50,6 +79,32 @@ const NavBar = () => {
             <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Contact Us</Link>
             <Link to="/testimonials" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>Testimonials</Link>
             <Link to="/faq" className="text-gray-700 hover:text-primary transition-colors" onClick={toggleMenu}>FAQ</Link>
+            
+            {isAuthenticated ? (
+              <>
+                <Link to="/dashboard" className="text-gray-700 hover:text-primary transition-colors flex items-center" onClick={toggleMenu}>
+                  <User className="h-4 w-4 mr-1" />
+                  Dashboard
+                </Link>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-gray-700 hover:text-primary transition-colors flex items-center justify-start p-0"
+                  onClick={() => {
+                    handleLogout();
+                    toggleMenu();
+                  }}
+                >
+                  <LogOut className="h-4 w-4 mr-1" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Link to="/login" className="text-gray-700 hover:text-primary transition-colors flex items-center" onClick={toggleMenu}>
+                <User className="h-4 w-4 mr-1" />
+                Login/Signup
+              </Link>
+            )}
           </div>
         </div>
       )}
