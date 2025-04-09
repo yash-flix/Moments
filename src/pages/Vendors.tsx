@@ -20,10 +20,14 @@ const priceOptions = [
 
 const categoryOptions = [
   "All",
+  "Wedding Halls",
   "Decorators",
   "Florists", 
   "Photographers", 
-  "Caterers"
+  "Caterers",
+  "Bridal Wear",
+  "Makeup Artists",
+  "DJ/Musicians"
 ];
 
 const ratingOptions = [3, 4, 5];
@@ -49,13 +53,43 @@ const Vendors = () => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState<string>("");
   
+  // Map categories to API values
+  const getCategoryValue = (category: string): string => {
+    const mapping: Record<string, string> = {
+      "All": "all",
+      "Wedding Halls": "wedding-halls",
+      "Decorators": "decorators",
+      "Florists": "florists", 
+      "Photographers": "photographers", 
+      "Caterers": "caterers",
+      "Bridal Wear": "bridal-wear",
+      "Makeup Artists": "makeup-artists",
+      "DJ/Musicians": "dj-musicians"
+    };
+    return mapping[category] || "all";
+  };
+  
   // Process vendors based on filters
   const filteredVendors = vendors.filter(vendor => {
-    // Convert category to lowercase for matching
-    const vendorCategory = vendor.category.charAt(0).toUpperCase() + vendor.category.slice(1);
+    // Convert category for display
+    const getCategoryDisplay = (categoryValue: string): string => {
+      const mapping: Record<string, string> = {
+        "wedding-halls": "Wedding Halls",
+        "decorators": "Decorators",
+        "florists": "Florists", 
+        "photographers": "Photographers", 
+        "caterers": "Caterers",
+        "bridal-wear": "Bridal Wear",
+        "makeup-artists": "Makeup Artists",
+        "dj-musicians": "DJ/Musicians"
+      };
+      return mapping[categoryValue] || categoryValue;
+    };
+    
+    const vendorCategoryDisplay = getCategoryDisplay(vendor.category);
     
     const matchesCategory = selectedCategory === "All" || 
-                           vendorCategory === selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
+                           vendorCategoryDisplay === selectedCategory;
     
     const matchesRating = selectedRating === null || vendor.rating >= selectedRating;
     
@@ -82,7 +116,9 @@ const Vendors = () => {
   useEffect(() => {
     const params = new URLSearchParams();
     if (searchLocation) params.set("location", searchLocation);
-    if (selectedCategory !== "All") params.set("category", selectedCategory.toLowerCase());
+    if (selectedCategory !== "All") {
+      params.set("category", getCategoryValue(selectedCategory).toLowerCase());
+    }
     if (selectedCity) params.set("city", selectedCity);
     
     const newUrl = `${location.pathname}?${params.toString()}`;
@@ -93,7 +129,22 @@ const Vendors = () => {
   useEffect(() => {
     const categoryParam = queryParams.get("category");
     if (categoryParam) {
-      setSelectedCategory(categoryParam.charAt(0).toUpperCase() + categoryParam.slice(1));
+      // Map URL param back to display value
+      const getCategoryFromParam = (param: string): string => {
+        const mapping: Record<string, string> = {
+          "wedding-halls": "Wedding Halls",
+          "decorators": "Decorators",
+          "florists": "Florists", 
+          "photographers": "Photographers", 
+          "caterers": "Caterers",
+          "bridal-wear": "Bridal Wear",
+          "makeup-artists": "Makeup Artists",
+          "dj-musicians": "DJ/Musicians"
+        };
+        return mapping[param] || param.charAt(0).toUpperCase() + param.slice(1);
+      };
+      
+      setSelectedCategory(getCategoryFromParam(categoryParam));
     }
     
     const cityParam = queryParams.get("city");
@@ -273,7 +324,7 @@ const Vendors = () => {
                         onClick={() => setSelectedCategory(category)}
                         className={`px-3 py-1 rounded-full text-sm ${
                           selectedCategory === category 
-                            ? 'bg-primary text-white' 
+                            ? 'bg-[#FA5F55] text-white' 
                             : 'bg-gray-100 text-gray-800'
                         }`}
                       >
@@ -292,7 +343,7 @@ const Vendors = () => {
                         onClick={() => setSelectedRating(rating === selectedRating ? null : rating)}
                         className={`px-3 py-1 rounded-full text-sm ${
                           selectedRating === rating 
-                            ? 'bg-primary text-white' 
+                            ? 'bg-[#FA5F55] text-white' 
                             : 'bg-gray-100 text-gray-800'
                         }`}
                       >
@@ -311,7 +362,7 @@ const Vendors = () => {
                         onClick={() => togglePriceFilter(price.value)}
                         className={`px-3 py-1 rounded-full text-sm ${
                           selectedPrices.includes(price.value) 
-                            ? 'bg-primary text-white' 
+                            ? 'bg-[#FA5F55] text-white' 
                             : 'bg-gray-100 text-gray-800'
                         }`}
                       >
@@ -337,7 +388,7 @@ const Vendors = () => {
                   </Button>
                   <Button
                     onClick={() => setIsMobileFilterOpen(false)}
-                    className="flex-1 bg-primary hover:bg-primary/90"
+                    className="flex-1 bg-[#FA5F55] hover:bg-[#d84941]"
                   >
                     Apply
                   </Button>
@@ -394,8 +445,21 @@ const Vendors = () => {
                             alt={vendor.name} 
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute top-0 left-0 bg-primary text-white px-3 py-1 text-sm">
-                            {vendor.category.charAt(0).toUpperCase() + vendor.category.slice(1)}
+                          <div className="absolute top-0 left-0 bg-[#FA5F55] text-white px-3 py-1 text-sm">
+                            {(() => {
+                              // Map category values to display names
+                              const mapping: Record<string, string> = {
+                                "wedding-halls": "Wedding Halls",
+                                "decorators": "Decorators",
+                                "florists": "Florists", 
+                                "photographers": "Photographers", 
+                                "caterers": "Caterers",
+                                "bridal-wear": "Bridal Wear",
+                                "makeup-artists": "Makeup Artists",
+                                "dj-musicians": "DJ/Musicians"
+                              };
+                              return mapping[vendor.category] || vendor.category.charAt(0).toUpperCase() + vendor.category.slice(1);
+                            })()}
                           </div>
                           <div className="absolute top-0 right-0 bg-white text-gray-800 px-3 py-1 text-sm">
                             {vendor.price}

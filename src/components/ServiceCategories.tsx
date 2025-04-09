@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 
 const categories = [
   {
+    id: "wedding-halls",
+    title: "Wedding Halls",
+    icon: "🏰",
+    description: "Find the perfect venue for your special day",
+  },
+  {
     id: "decorators",
     title: "Decorators",
     icon: "🎨",
@@ -26,6 +32,24 @@ const categories = [
     title: "Caterers",
     icon: "🍽️",
     description: "Delicious cuisine to delight your guests",
+  },
+  {
+    id: "bridal-wear",
+    title: "Bridal Wear",
+    icon: "👰",
+    description: "Stunning attire for the bride and groom",
+  },
+  {
+    id: "makeup-artists",
+    title: "Makeup Artists",
+    icon: "💄",
+    description: "Professional makeup to enhance your natural beauty",
+  },
+  {
+    id: "dj-musicians",
+    title: "DJs & Musicians",
+    icon: "🎵",
+    description: "Set the perfect mood with great entertainment",
   },
 ];
 
