@@ -18,7 +18,7 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="hero-section py-20 md:py-32 relative">
-        <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 bg-black/50 bg-[url('https://t4.ftcdn.net/jpg/11/17/02/71/240_F_1117027196_0UBk1Sg9nsJl28fPW0XNDQxUYw68gAvy.jpg')] bg-cover bg-center"></div>
         <div className="container-custom relative z-10 text-white text-center">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-alex mb-6">Find Your Perfect Wedding Vendors</h1>
           <p className="text-xl max-w-3xl mx-auto mb-10 text-white/90">
