@@ -6,10 +6,14 @@ import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/context/AuthContext";
 
 const NavBar = () => {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
   const menuRef = useRef<HTMLDivElement>(null);
-
+  
+  const isLoggedIn = !!localStorage.getItem('token');
+  
+  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -55,15 +59,21 @@ const NavBar = () => {
 
         {/* Login/Signup Button - Always Visible */}
         <div className="flex items-center">
-          {isAuthenticated ? (
+          {isLoggedIn ? (
             <div className="flex items-center space-x-2">
               <Link 
                 to="/dashboard" 
                 className="text-[#FA5F55] hover:text-[#d84941] transition-colors flex items-center px-4 py-2 rounded-md"
               >
-                <User className="h-4 w-4 mr-1" />
                 Dashboard
               </Link>
+              <Link 
+                to="/profile" 
+                className="text-[#FA5F55] hover:text-[#d84941] transition-colors flex items-center px-4 py-2 rounded-md"
+              >
+                 Profile
+              </Link>
+              
               <Button 
                 variant="outline" 
                 size="sm" 
@@ -93,6 +103,15 @@ const NavBar = () => {
           className="absolute left-0 top-16 w-64 bg-white shadow-md z-50 rounded-br-md"
         >
           <div className="flex flex-col space-y-1 p-4">
+            <Link 
+              to="/" 
+              className="text-gray-700 hover:bg-[#FA5F55] hover:text-white px-4 py-2 rounded-md transition-colors" 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Dashboard
+            </Link>
+
+
             <Link 
               to="/" 
               className="text-gray-700 hover:bg-[#FA5F55] hover:text-white px-4 py-2 rounded-md transition-colors" 

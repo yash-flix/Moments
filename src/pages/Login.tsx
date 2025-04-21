@@ -1,40 +1,58 @@
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
+import axios from 'axios';
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { useAuth } from "@/context/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage("");
 
     try {
-      await login(email, password);
-      toast({
-        title: "Login successful!",
-        description: "Welcome back to Moments.",
+      const response = await axios.post('/api/login', {
+        usernameOrEmail,
+        password,
       });
-      navigate("/dashboard");
-    } catch (error) {
+
+      if (response.status === 200) {
+        const { token } = response.data;
+        localStorage.setItem('token', token);
+        
+        toast({
+          title: "Login Successful!",
+          description: "Welcome back to Moments.",
+        });
+        navigate('/dashboard');
+      } else {
+        throw new Error(response.data.message || 'Login failed');
+      }
+    } catch (error: any) {
+       let message = "An error occurred during login.";
+      if (error.response) {
+        message = error.response.data.message || "Invalid username/email or password";
+      }
       toast({
-        title: "Login failed",
-        description: "Invalid email or password. Please try again.",
         variant: "destructive",
+        title: "Authentication error",
+        description: message,
       });
+
     } finally {
+
       setIsLoading(false);
     }
   };
@@ -51,13 +69,13 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="usernameOrEmail">Username or Email</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your.email@example.com"
+                  id="usernameOrEmail"
+                  type="text"
+                  value={usernameOrEmail}
+                  onChange={(e) => setUsernameOrEmail(e.target.value)}
+                  placeholder="Enter your username or email"
                   required
                 />
               </div>
@@ -80,6 +98,9 @@ const Login = () => {
                   required
                 />
               </div>
+              {errorMessage && (
+                <div className="text-red-500">{errorMessage}</div>
+              )}
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <Button 

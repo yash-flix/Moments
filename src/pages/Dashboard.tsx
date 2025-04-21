@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,14 +17,42 @@ import AppointmentsList from "@/components/dashboard/AppointmentsList";
 import ShortlistedVendors from "@/components/dashboard/ShortlistedVendors";
 import ReviewsHistory from "@/components/dashboard/ReviewsHistory";
 import VendorComparison from "@/components/dashboard/VendorComparison";
+import axios from "axios";
 import WeddingChecklist from "@/components/dashboard/WeddingChecklist";
 
 const Dashboard = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
+  const [user, setUser] = useState<{ username: string; email: string } | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios
+        .get("http://localhost:5000/api/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setUser(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          navigate("/login");
+        });
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+  if (loading) {
+    return <div className="text-center">Loading...</div>;
   }
 
   return (
@@ -33,7 +61,7 @@ const Dashboard = () => {
       
       <div className="container-custom py-8 flex-1">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-alex text-primary">Welcome, {user?.name}</h1>
+          <h1 className="text-3xl font-alex text-primary">Welcome, {user?.username}</h1>
         </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -66,7 +94,12 @@ const Dashboard = () => {
           
           <div className="mt-6">
             <TabsContent value="profile">
-              <UserProfile />
+              <Card>
+                <CardHeader>
+                  <CardTitle>User Profile</CardTitle>
+                </CardHeader>
+                <CardContent><div>Username: {user?.username}</div><div>Email: {user?.email}</div></CardContent>
+              </Card>
             </TabsContent>
             
             <TabsContent value="appointments">

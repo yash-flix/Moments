@@ -1,14 +1,14 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
+import NavBar from "@/components/NavBar";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import NavBar from "@/components/NavBar";
+import axios from "axios";
 import Footer from "@/components/Footer";
-import { useAuth } from "@/context/AuthContext";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -18,11 +18,36 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const { signup } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhone = (phone: string) => {
+    const phoneRegex = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!name || !email || !password) {
+      setErrorMessage("Please fill in all required fields.");
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+    if(phone && !isValidPhone(phone)){
+      setErrorMessage("Please enter a valid phone number");
+      return;
+    }
+
+    setErrorMessage("");
     
     if (password !== confirmPassword) {
       toast({
@@ -36,33 +61,48 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      await signup(name, email, password, phone, location);
-      toast({
-        title: "Account created successfully!",
-        description: "Welcome to Moments. You can now plan your perfect wedding.",
+      const response = await axios.post('/api/register', {
+        username: name,
+        email,
+        phone,
+        location,
+        password,
       });
-      navigate("/dashboard");
-    } catch (error) {
-      toast({
-        title: "Signup failed",
-        description: "There was an error creating your account. Please try again.",
-        variant: "destructive",
-      });
+
+      if (response.status === 200) {
+        toast({
+          title: "Account created successfully!",
+          description: "You can now log in to your account.",
+        });
+        navigate("/login");
+      } else {
+        setErrorMessage(response.data.message || "Signup failed. Please try again.");
+      }
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        if (err.response && err.response.data) {
+          setErrorMessage(err.response.data.message || "Signup failed. Please try again.");
+        } else {
+          setErrorMessage("An unexpected error occurred. Please try again.");
+        }
+      } else {
+        setErrorMessage("An unexpected error occurred. Please try again.");
+      }
     } finally {
       setIsLoading(false);
-    }
+  }
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col justify-between">
       <NavBar />
-      <div className="flex-1 flex items-center justify-center py-12">
+      <div className="flex flex-1 items-center justify-center py-12">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-4xl font-alex text-primary">Create Account</CardTitle>
             <CardDescription>Sign up to start planning your perfect wedding</CardDescription>
           </CardHeader>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
@@ -74,7 +114,7 @@ const Signup = () => {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -86,7 +126,7 @@ const Signup = () => {
                   required
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number</Label>
                 <Input
@@ -96,7 +136,7 @@ const Signup = () => {
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 XXXXXXXXXX"
                 />
-              </div>
+              </div>              
               
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
@@ -106,7 +146,7 @@ const Signup = () => {
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Your City"
                 />
-              </div>
+              </div>              
               
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
@@ -119,7 +159,7 @@ const Signup = () => {
                   required
                   minLength={6}
                 />
-              </div>
+              </div>              
               
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
@@ -135,9 +175,11 @@ const Signup = () => {
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
-              <Button 
-                type="submit" 
-                className="w-full bg-primary hover:bg-primary/90"
+            {errorMessage && (
+              <p className="text-red-500 text-center">{errorMessage}</p>)}
+              <Button
+                type="submit"
+                className="w-full bg-primary hover:bg-primary/90"                
                 disabled={isLoading}
               >
                 {isLoading ? "Creating account..." : "Create Account"}
@@ -156,5 +198,4 @@ const Signup = () => {
     </div>
   );
 };
-
 export default Signup;
