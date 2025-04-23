@@ -6,13 +6,13 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/context/AuthContext";
-import { Mail } from "lucide-react"; // Removed User, Phone, MapPin icons
+import { Mail } from "lucide-react"; // Only Mail icon is needed now
 
 const UserProfile = () => {
   const { user, updateUserProfile } = useAuth();
   
   const [isEditing, setIsEditing] = useState(false);
-  // Removed state for name, phone, location as they are not displayed or edited here
+  // Name, phone, location states removed
   const [email, setEmail] = useState(user?.email || "");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +21,7 @@ const UserProfile = () => {
     setIsLoading(true);
     
     try {
-      // Only update email if it has changed. Name, phone, location are not handled here.
+      // Only update email if it has changed
       const updateData: { email?: string } = {};
       if (email !== user?.email) updateData.email = email;
 
@@ -52,16 +52,11 @@ const UserProfile = () => {
         <CardDescription>Manage your personal information</CardDescription>
       </CardHeader>
       <CardContent>
-        {/* Removed editing form as there are no fields to edit */}
+        {/* Editing form removed as only email is displayed and it's disabled */}
         {/*
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Removed Name Input */}
-            {/* Removed Phone Input */}
-            {/* Removed Location Input */}
             
-            {/* Email input kept as example if it were editable */}
-            {/*
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -71,13 +66,10 @@ const UserProfile = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
                 required
-                disabled // Email is often not editable after signup
+                disabled
               />
             </div>
-            */}
             
-            {/* Removed Save and Cancel buttons */}
-            {/*
             <div className="flex space-x-4 pt-4">
               <Button 
                 type="submit" 
@@ -94,14 +86,11 @@ const UserProfile = () => {
                 Cancel
               </Button>
             </div>
-            */}
-          {/*</form>
+          </form>
         ) : (*/}
           <div className="space-y-6">
             <div className="flex flex-col space-y-4">
-              {/* Removed Name Display */}
-              {/* Removed Phone Display */}
-              {/* Removed Location Display */}
+              {/* Name, Phone, Location display removed */}
               
               <div className="flex items-center gap-4">
                 <div className="bg-gray-100 rounded-full p-3">
@@ -115,15 +104,7 @@ const UserProfile = () => {
               
             </div>
             
-            {/* Removed Edit Profile button as there are no fields to edit */}
-            {/* 
-            <Button 
-              onClick={() => setIsEditing(true)} 
-              className="bg-primary hover:bg-primary/90 mt-4"
-            >
-              Edit Profile
-            </Button>
-            */}
+            {/* Edit Profile button removed */}
           </div>
         {/*)}*/}
       </CardContent>
