@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,13 +16,23 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+import { useAuth } from "./context/AuthContext"; // Import useAuth
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
+const App = () => {
+  const { isLoading } = useAuth(); // Get isLoading from AuthContext
+
+  // While authentication state is loading, show a loading indicator
+  if (isLoading) {
+    return <div>Loading application...</div>; // Or a spinner component
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* AuthProvider is now in main.tsx */}
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -38,16 +47,25 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/faq" element={<Faq />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            
+            {/* Protect Login and Signup routes - only accessible when NOT authenticated */}
+            <Route element={<PublicRoute restricted={true} />} >
+               <Route path="/login" element={<Login />} />
+               <Route path="/signup" element={<Signup />} />
+            </Route>
+
+            {/* Protect the Dashboard route - only accessible when authenticated */}          
+            <Route element={<ProtectedRoute />} >
+               <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
+    </QueryClientProvider>
+  );
+};
 
 export default App;

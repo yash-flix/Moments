@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import NavBar from "@/components/NavBar";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import axios from "axios";
 import Footer from "@/components/Footer";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { app } from "../firebase"; // Import app as a named import
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -20,6 +20,7 @@ const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const auth = getAuth(app);
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -35,7 +36,7 @@ const Signup = () => {
     e.preventDefault();
 
     if (!name || !email || !password) {
-      setErrorMessage("Please fill in all required fields.");
+      setErrorMessage("Please fill in all required fields (Name, Email, Password).");
       return;
     }
     if (!isValidEmail(email)) {
@@ -61,36 +62,53 @@ const Signup = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('/api/register', {
-        username: name,
-        email,
-        phone,
-        location,
-        password,
+      // Use Firebase createUserWithEmailAndPassword
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Firebase Auth only stores email and password by default.
+      // If you want to store name, phone, location, you'll need to add them to a database like Firestore
+      // For example:
+      // import { getFirestore, doc, setDoc } from "firebase/firestore";
+      // const db = getFirestore(app);
+      // await setDoc(doc(db, "users", user.uid), {
+      //   name: name,
+      //   phone: phone,
+      //   location: location,
+      //   email: email // Often good to store email in the user document as well
+      // });
+
+      toast({
+        title: "Account created successfully!",
+        description: "You can now log in with your new account.",
+      });
+      navigate("/login");
+
+    } catch (error: any) {
+      let message = "An error occurred during signup.";
+      // Firebase Auth error handling
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          message = 'The email address is already in use by another account.';
+          break;
+        case 'auth/weak-password':
+          message = 'Password should be at least 6 characters.';
+          break;
+        case 'auth/invalid-email':
+          message = 'Invalid email address.';
+          break;
+        default:
+          message = error.message || "An unexpected error occurred during signup.";
+      }
+      toast({
+        variant: "destructive",
+        title: "Signup error",
+        description: message,
       });
 
-      if (response.status === 200) {
-        toast({
-          title: "Account created successfully!",
-          description: "You can now log in to your account.",
-        });
-        navigate("/login");
-      } else {
-        setErrorMessage(response.data.message || "Signup failed. Please try again.");
-      }
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        if (err.response && err.response.data) {
-          setErrorMessage(err.response.data.message || "Signup failed. Please try again.");
-        } else {
-          setErrorMessage("An unexpected error occurred. Please try again.");
-        }
-      } else {
-        setErrorMessage("An unexpected error occurred. Please try again.");
-      }
     } finally {
       setIsLoading(false);
-  }
+    }
   };
 
   return (
@@ -128,7 +146,7 @@ const Signup = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">Phone Number (Optional)</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -139,7 +157,7 @@ const Signup = () => {
               </div>              
               
               <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
+                <Label htmlFor="location">Location (Optional)</Label>
                 <Input
                   id="location"
                   value={location}

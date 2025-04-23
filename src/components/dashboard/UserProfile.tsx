@@ -6,16 +6,14 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/context/AuthContext";
-import { User, Mail, Phone, MapPin } from "lucide-react";
+import { Mail } from "lucide-react"; // Removed User, Phone, MapPin icons
 
 const UserProfile = () => {
   const { user, updateUserProfile } = useAuth();
   
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user?.name || "");
+  // Removed state for name, phone, location as they are not displayed or edited here
   const [email, setEmail] = useState(user?.email || "");
-  const [phone, setPhone] = useState(user?.phone || "");
-  const [location, setLocation] = useState(user?.location || "");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,7 +21,14 @@ const UserProfile = () => {
     setIsLoading(true);
     
     try {
-      await updateUserProfile({ name, email, phone, location });
+      // Only update email if it has changed. Name, phone, location are not handled here.
+      const updateData: { email?: string } = {};
+      if (email !== user?.email) updateData.email = email;
+
+      if (Object.keys(updateData).length > 0) {
+         await updateUserProfile(updateData);
+      }
+     
       setIsEditing(false);
       toast({
         title: "Profile updated",
@@ -47,19 +52,16 @@ const UserProfile = () => {
         <CardDescription>Manage your personal information</CardDescription>
       </CardHeader>
       <CardContent>
+        {/* Removed editing form as there are no fields to edit */}
+        {/*
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your Name"
-                required
-              />
-            </div>
+            {/* Removed Name Input */}
+            {/* Removed Phone Input */}
+            {/* Removed Location Input */}
             
+            {/* Email input kept as example if it were editable */}
+            {/*
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -69,30 +71,13 @@ const UserProfile = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your.email@example.com"
                 required
+                disabled // Email is often not editable after signup
               />
             </div>
+            */}
             
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+91 XXXXXXXXXX"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="location">Location</Label>
-              <Input
-                id="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Your City"
-              />
-            </div>
-            
+            {/* Removed Save and Cancel buttons */}
+            {/*
             <div className="flex space-x-4 pt-4">
               <Button 
                 type="submit" 
@@ -109,19 +94,14 @@ const UserProfile = () => {
                 Cancel
               </Button>
             </div>
-          </form>
-        ) : (
+            */}
+          {/*</form>
+        ) : (*/}
           <div className="space-y-6">
             <div className="flex flex-col space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-100 rounded-full p-3">
-                  <User className="h-5 w-5 text-gray-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Name</p>
-                  <p className="font-medium">{user?.name}</p>
-                </div>
-              </div>
+              {/* Removed Name Display */}
+              {/* Removed Phone Display */}
+              {/* Removed Location Display */}
               
               <div className="flex items-center gap-4">
                 <div className="bg-gray-100 rounded-full p-3">
@@ -129,39 +109,23 @@ const UserProfile = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
-                  <p className="font-medium">{user?.email}</p>
+                  <p className="font-medium">{user?.email || "Not provided"}</p>
                 </div>
               </div>
               
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-100 rounded-full p-3">
-                  <Phone className="h-5 w-5 text-gray-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Phone</p>
-                  <p className="font-medium">{user?.phone || "Not provided"}</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-4">
-                <div className="bg-gray-100 rounded-full p-3">
-                  <MapPin className="h-5 w-5 text-gray-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Location</p>
-                  <p className="font-medium">{user?.location || "Not provided"}</p>
-                </div>
-              </div>
             </div>
             
+            {/* Removed Edit Profile button as there are no fields to edit */}
+            {/* 
             <Button 
               onClick={() => setIsEditing(true)} 
               className="bg-primary hover:bg-primary/90 mt-4"
             >
               Edit Profile
             </Button>
+            */}
           </div>
-        )}
+        {/*)}*/}
       </CardContent>
     </Card>
   );

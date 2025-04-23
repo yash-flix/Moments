@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,51 +7,52 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import { User, Calendar, ShoppingBag, Star, BarChart2, CheckSquare, X } from "lucide-react";
+import { User, Calendar, ShoppingBag, Star, BarChart2, CheckSquare, X, Mail, Phone, MapPin } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/context/AuthContext";
-import UserProfile from "@/components/dashboard/UserProfile";
+// import UserProfile from "@/components/dashboard/UserProfile"; // UserProfile component is already used inline
 import AppointmentsList from "@/components/dashboard/AppointmentsList";
 import ShortlistedVendors from "@/components/dashboard/ShortlistedVendors";
 import ReviewsHistory from "@/components/dashboard/ReviewsHistory";
 import VendorComparison from "@/components/dashboard/VendorComparison";
-import axios from "axios";
+// import axios from "axios"; // No longer needed for fetching user profile
 import WeddingChecklist from "@/components/dashboard/WeddingChecklist";
 
 const Dashboard = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user, isLoading: authLoading } = useAuth(); // Get isAuthenticated, user, and authLoading from context
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
-  const [user, setUser] = useState<{ username: string; email: string } | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  // Remove the old useEffect for fetching user data via axios
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     axios
+  //       .get("http://localhost:5000/api/profile", {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       })
+  //       .then((response) => {
+  //         setUser(response.data);
+  //         setLoading(false);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching user data:", error);
+  //         navigate("/login");
+  //       });
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }, [navigate]);
 
-    if (token) {
-      axios
-        .get("http://localhost:5000/api/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          setUser(response.data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          navigate("/login");
-        });
-    } else {
-      navigate("/login");
-    }
-  }, [navigate]);
+  // Use authLoading from context for the initial loading state
+  if (authLoading) {
+    return <div className="text-center">Loading dashboard...</div>; // Show loading while auth state is determined
+  }
 
+  // If not authenticated after loading, redirect to login
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
-  }
-  if (loading) {
-    return <div className="text-center">Loading...</div>;
   }
 
   return (
@@ -60,8 +60,9 @@ const Dashboard = () => {
       <NavBar />
       
       <div className="container-custom py-8 flex-1">
+        {/* Use user.name from context */}        
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-alex text-primary">Welcome, {user?.username}</h1>
+          <h1 className="text-3xl font-alex text-primary">Welcome, {user?.name || user?.email}</h1>
         </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -94,12 +95,33 @@ const Dashboard = () => {
           
           <div className="mt-6">
             <TabsContent value="profile">
-              <Card>
-                <CardHeader>
-                  <CardTitle>User Profile</CardTitle>
-                </CardHeader>
-                <CardContent><div>Username: {user?.username}</div><div>Email: {user?.email}</div></CardContent>
-              </Card>
+              {/* Use the UserProfile component or display info inline from context */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>User Profile</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {/* Display user information from the authenticated user object */}
+                    <div className="space-y-4">
+                       <div className="flex items-center gap-2">
+                         <User className="h-4 w-4 text-gray-600" />
+                         <div><strong>Name:</strong> {user?.name || "Not provided"}</div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                          <Mail className="h-4 w-4 text-gray-600" />
+                          <div><strong>Email:</strong> {user?.email || "Not provided"}</div>
+                       </div>
+                       <div className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-gray-600" />
+                          <div><strong>Phone:</strong> {user?.phone || "Not provided"}</div>
+                       </div>
+                        <div className="flex items-center gap-2">
+                          <MapPin className="h-4 w-4 text-gray-600" />
+                          <div><strong>Location:</strong> {user?.location || "Not provided"}</div>
+                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
             </TabsContent>
             
             <TabsContent value="appointments">
