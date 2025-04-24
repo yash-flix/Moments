@@ -23,49 +23,83 @@ const decoratorImages = [
   "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://img.freepik.com/free-photo/navratri-decoration-with-candles_23-2151193771.jpg?t=st=1745520527~exp=1745524127~hmac=89b79808908cdbf3d34fa1b5fe9bedd1e35246d8a915e337f3bd79bcd6ca1f5e&w=996",
+  "https://img.freepik.com/free-photo/photorealistic-wedding-venue-with-intricate-decor-ornaments_23-2151481538.jpg?t=st=1745520558~exp=1745524158~hmac=d0b15d0308d9d5564fcda5465cceaee5d90b8faab0a861d358774e92bf561e35&w=996",
+  "https://img.freepik.com/premium-photo/colorful-stage-decoration-bride_42422-72.jpg?w=996",
+  "https://img.freepik.com/premium-photo/indian-wedding-haldi-decoration-groom-bride-yellow-color_143921-377.jpg?w=996",
+  "https://img.freepik.com/premium-photo/kenyan-weddings-indian-asian-details-texture-accessories-marriage-customary-ceremony-nairobi-city_257688-6576.jpg?w=996",
+  "https://img.freepik.com/free-photo/navratri-interior-decoration_23-2151193731.jpg?t=st=1745520673~exp=1745524273~hmac=707a49f1e5c46db346c0fdaa06e0a617e6e11ca71506dd6c9424988af96ec25b&w=996",
 ];
 
 const catererImages = [
   "https://images.unsplash.com/photo-1486428263684-28ec9e4f2584?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
   "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+  "https://img.freepik.com/free-photo/side-view-chicken-meatballs-with-greens-ketchup-plate_141793-4839.jpg?t=st=1745520764~exp=1745524364~hmac=bdfe9f8323248781624b3810d8f729b5348461b2fe5bb34cdd29724086e9f70f&w=996",
+  "https://img.freepik.com/free-photo/high-angle-view-vegan-salad-with-avocado_176474-2671.jpg?t=st=1745520791~exp=1745524391~hmac=3ce4df0911decac276f91cffe147f441bd576095ee0fa289269a018893b2650e&w=996",
+  "https://img.freepik.com/free-photo/side-view-dessert-sweet-baked-pumpkin-with-nuts-cream_141793-3867.jpg?t=st=1745520821~exp=1745524421~hmac=006129b36f846ab1cc4698b20e860cf2d628013739a3014ca4687547bde6cf51&w=996",
+  "https://img.freepik.com/free-photo/dinner-table-with-fried-meat-dishes-sauces_181624-43898.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/close-up-ice-cream-table_1048944-28128628.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
 ];
 
 const photographerImages = [
   "https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
   "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
   "https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://img.freepik.com/free-photo/beautiful-woman-long-red-dress-walks-around-city-with-her-husband_1157-13373.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/couple-portrait-fotographiya_1108565-35.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/couple-is-kissing-tropical-garden_1113980-2203.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/picture-bride-groom-by-window_1113980-2430.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
 ];
 
 const floristImages = [
   "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-  "https://images.unsplash.com/photo-1464699908537-0954e50189af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+  "https://img.freepik.com/free-photo/beautiful-wedding-flowers-low-angle_23-2149617119.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
   "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+  "https://img.freepik.com/free-photo/navratri-highly-detailed-floral-decoration_23-2151193685.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/close-up-red-flowers_1048944-9600100.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/free-photo/bouquet-flowers-with-white-background_1232-1088.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://imgs.search.brave.com/Tp395Hh-fJMdGPcFoLdVcyJuiksXtGwA773g1BGQ1YU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc3F1YXJlc3Bh/Y2UtY2RuLmNvbS9j/b250ZW50L3YxLzU4/NTQ1YmI5MzdjNTgx/YWZjY2VhNWU4OC8x/NjAxNDk4MTc5NDg4/LUtHRVk4S1NETks0/QVRPUDM5NlFYL2lt/YWdlLWFzc2V0Lmpw/ZWc",
 ];
 
 // New category images
 const weddingHallImages = [
   "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
   "https://images.unsplash.com/photo-1505944357431-27579db47222?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-  "https://images.unsplash.com/photo-1519741347686-c1e331ec5a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://imgs.search.brave.com/j0zkXJ_xWBJ7RhkjsxjtqV8Z_FgZUPea6w3H3tr54zg/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc3F1YXJlc3Bh/Y2UtY2RuLmNvbS9j/b250ZW50L3YxLzY1/NjRhZmI0ZjA4NTE3/NjBjZmNkZGU1OC84/YTZjMGRjNC1kODVk/LTQ3ODEtYTM5YS01/YTAxOTAzMzc3MDUv/TmlybWFsLVNoYXJv/bi1SaW5hcy1WZW51/ZS1DaGVubmFpLTAy/MTUuanBn",
+  "https://img.freepik.com/free-photo/photorealistic-wedding-venue-with-intricate-decor-ornaments_23-2151481476.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/photo-is-must-everyday-work-ai-generated-best-wonderful-photo_865967-1233391.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/flower-decoration-hanging-footpath_1048944-7609378.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/ceremony-arch-wedding-arch-wedding-wedding-moment-decorations-decor-wedding-decorations_543567-2689.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://img.freepik.com/premium-photo/flower-covered-walkway-with-curtain-that-says-flowers_1058338-24175.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+
 ];
 
 const bridalWearImages = [
   "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2083&q=80",
-  "https://images.unsplash.com/photo-1594552072238-5fa087105add?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+  "https://img.freepik.com/free-photo/details-part-traditional-indian-wedding-women-clothes_8353-9765.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
   "https://images.unsplash.com/photo-1585241920873-a914432df4f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://imgs.search.brave.com/243R_9BMRoiDLuGJo3KX8jJIQ6XsD8RvDZLDAxvW4wY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bW9oaWZhc2hpb24u/Y29tL2Nkbi9zaG9w/L2ZpbGVzL0FBLTEz/OC5qcGc_dj0xNzMy/OTY1NzA4JndpZHRo/PTUzMw",
+  "https://imgs.search.brave.com/l-AB-C5hIUu4H3eminiq7QPBKlGq_8I0kvGYkWOEruw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/bW9oaWZhc2hpb24u/Y29tL2Nkbi9zaG9w/L2ZpbGVzLzFfM2U1/ZjE3NjUtYThlMy00/NmUwLThhOWYtMjc2/NjZmODQ3MThhLmpw/Zz92PTE2ODMwMjYy/Njgmd2lkdGg9NTMz",
+  "https://imgs.search.brave.com/F1Lz5eyLFpwIi88aWBA0UdsMFNUfCNU5rqX8Q_4dszA/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzFjLzYy/L2FjLzFjNjJhY2Q5/ZDYxZjFkMDQ1YmEx/NjlmNGQxNjU1ZDZi/LmpwZw",
+  "https://imgs.search.brave.com/fDIpbN25OrBH0-trZtwhwQXwhwiTSlHZ4KwPQD_rCB0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YnJpZGVzLmNvbS90/aG1iL3kyZHdjRnVm/cW9SYVc1UnBhTzdV/T3N4ZVNZdz0vMTUw/MHgwL2ZpbHRlcnM6/bm9fdXBzY2FsZSgp/Om1heF9ieXRlcygx/NTAwMDApOnN0cmlw/X2ljYygpL1NhYnlh/c2FjaGlhLTk5ODk4/NDI1MWI0MzRmM2E5/YzM1MGM1Njk0ZWY3/ZjMyLmpwZWc",
+  "https://imgs.search.brave.com/aFUO-0EBaqMCp_mq8nsQBSkMRynU0qdhcHTda_HD05g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzgwLzQy/L2Q4LzgwNDJkODIx/Yjk2OGI3YWE2N2E4/ZDE3YWI4OTViN2I5/LmpwZw",
+  "https://imgs.search.brave.com/JcmDVEExvBBYl1fG_Tl5njyOGpiqf3DbFAiBs6B0LJE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzk4LzJh/LzJhLzk4MmEyYTNj/ODAyNmM3N2FiNzZj/YTRiYzU1MTY5MjM2/LmpwZw",
 ];
 
 const makeupArtistImages = [
-  "https://images.unsplash.com/photo-1556159968-8b3c1d577a8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://imgs.search.brave.com/PeCifFFNSMdYz-lgVIPh-3K44drdw-lAIQQWLs8MUr4/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZS53ZWRtZWdvb2Qu/Y29tL3Jlc2l6ZWQv/NDUwWC91cGxvYWRz/L21lbWJlci84MTU5/LzE1MDAzNjA3NTNf/MTQ5ODU0MjUwMl9p/bWFnZTY4LmpwZw",
   "https://images.unsplash.com/photo-1457972851104-4fd469440bf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2087&q=80",
 ];
 
 const djMusicianImages = [
-  "https://images.unsplash.com/photo-1571266028243-251f2ac695d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://imgs.search.brave.com/h1YJDBrvt5k_E5e1WEyWz7MFIPztjCrmBMEgv4Zhogk/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAyLzA2LzM0LzIx/LzM2MF9GXzIwNjM0/MjE3OV90MXJacm05/Mzg3bnA2QUVPOGxp/YlF0T2JBWVkwaVI0/Uy5qcGc",
   "https://images.unsplash.com/photo-1504782095032-7c5b9f1fcce9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   "https://images.unsplash.com/photo-1516873240891-4bf014598ab4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://img.freepik.com/free-photo/male-dj-taking-care-music-entertainment-party_23-2149658401.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
+  "https://imgs.search.brave.com/dFLrLKeIC8u-mTecFxO0niwbr25pxJUV8UDVvuhd4N8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9lbmdh/Z2U0bW9yZS5jb20v/YmxvZy93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMi8xMC9ESi1O/WUstMS5qcGc",
+  
 ];
 
 // Gallery images
@@ -128,7 +162,7 @@ const makeupArtistGalleryImages = [
 
 const djMusicianGalleryImages = [
   "https://images.unsplash.com/photo-1571266028243-251f2ac695d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-  "https://images.unsplash.com/photo-1504782095032-7c5b9f1fcce9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  "https://img.freepik.com/free-photo/portrait-man-working-as-musician_23-2151230042.jpg?ga=GA1.1.1138397977.1745520527&semt=ais_hybrid&w=740",
   "https://images.unsplash.com/photo-1516873240891-4bf014598ab4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   "https://images.unsplash.com/photo-1483393458019-411bc6bd104e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
   "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
