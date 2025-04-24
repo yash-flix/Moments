@@ -278,7 +278,7 @@ const VendorDetail = () => {
                       width="100%"
                       height="100%"
                       frameBorder="0"
-                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBZAMAEtQUKl7mA8nERiOcm3U8WdfYeQh0&q=${encodeURIComponent(vendor.location)}`}
+                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDuPU4QfbOrgMba9p9HZl-_sD6RKJoxT6w&q=${encodeURIComponent(vendor.location)}`}
                       allowFullScreen
                     ></iframe>
                   </div>
